@@ -1,20 +1,20 @@
-import type { Todo } from "../types";
+import type { Todo } from '../types'
 
-const localStorageKeyName = "todos";
+const localStorageKeyName = 'todos'
 
 export const loadTodos = () => {
   try {
-    const stored = localStorage.getItem(localStorageKeyName);
-    return stored ? JSON.parse(stored) : [];
+    const stored = localStorage.getItem(localStorageKeyName)
+    return stored ? JSON.parse(stored) : []
   } catch {
-    return [];
+    return []
   }
-};
+}
 
 export const saveTodos = (todos: Todo[]) => {
   try {
-    localStorage.setItem(localStorageKeyName, JSON.stringify(todos));
+    localStorage.setItem(localStorageKeyName, JSON.stringify(todos))
   } catch {
-    console.error("Ошибка при сохранении данных в LS");
+    console.error('Ошибка при сохранении данных в LS')
   }
-};
+}

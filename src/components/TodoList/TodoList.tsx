@@ -1,67 +1,43 @@
-import { useState } from "react";
+import { useState } from 'react'
 
-import type { Todo } from "../../types";
-import { saveTodos } from "../../relatedScripts/localStorage";
-import TodoItem from "../TodoItem/TodoItem";
+import type { Todo } from '../../types'
+import { saveTodos } from '../../relatedScripts/localStorage'
+import TodoItem from '../TodoItem/TodoItem'
 
-function TodoList({ todos, setTodos }: Todo) {
-  const [allTodos, setAllTodos] = useState(todos);
-
+function TodoList({ todos, setTodos }) {
   function changeStatus(id) {
-    console.log("qweqweqwe");
-    console.log(allTodos);
-
-    const copyAllTodos = [...allTodos];
-    const changedList = copyAllTodos.map((el) => {
+    const changedList = todos.map((el) => {
       if (el.id === id) {
-        el.status = !el.status;
+        return { ...el, status: !el.status }
       }
-      return el;
-    });
+      return el
+    })
 
-    setAllTodos(changedList);
-    saveTodos(changedList);
-    setTodos(changedList);
-
-    // setAllTodos(
-    //   allTodos.map((el) => {
-    //     console.log("qweqweqwe");
-    //     if (el.id === id) {
-    //       el.status = !el.status;
-    //     }
-    //     setTodos(allTodos);
-    //     saveTodos(allTodos);
-
-    //     return el;
-    //   })
-    // );
+    saveTodos(changedList)
+    setTodos(changedList)
   }
 
   function deleteToDoItem(id) {
-    const copyAllTodos = [...allTodos];
-    const filteredList = copyAllTodos.filter((el) => {
-      return el.id !== id;
-    });
+    const filteredList = todos.filter((el) => el.id !== id)
 
-    setAllTodos(filteredList);
-    saveTodos(filteredList);
-    setTodos(filteredList);
+    saveTodos(filteredList)
+    setTodos(filteredList)
   }
 
-  const arrTag = todos.map((el) => {
-    return (
-      <TodoItem
-        key={el.id}
-        id={el.id}
-        text={el.text}
-        status={el.status}
-        changeStatus={changeStatus}
-        deleteToDoItem={deleteToDoItem}
-      />
-    );
-  });
-
-  return <ol>{arrTag}</ol>;
+  return (
+    <ol>
+      {todos.map((el) => (
+        <TodoItem
+          key={el.id}
+          id={el.id}
+          text={el.text}
+          status={el.status}
+          changeStatus={changeStatus}
+          deleteToDoItem={deleteToDoItem}
+        />
+      ))}
+    </ol>
+  )
 }
 
-export default TodoList;
+export default TodoList

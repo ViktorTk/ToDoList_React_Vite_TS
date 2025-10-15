@@ -9,7 +9,7 @@ function TodoItem({ id, text, status, changeStatus, deleteToDoItem }) {
       />
       <button onClick={() => deleteToDoItem(id)}>Удалить</button>
     </li>
-  );
+  )
 }
 
-export default TodoItem;
+export default TodoItem

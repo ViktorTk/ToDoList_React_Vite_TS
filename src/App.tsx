@@ -1,19 +1,42 @@
-import { useState } from "react";
-import "./App.css";
+import { useState, useMemo } from 'react'
+import './App.css'
 
-import TodoForm from "./components/TodoForm/TodoForm";
+import { loadTodos } from './relatedScripts/localStorage'
+import TodoForm from './components/TodoForm/TodoForm'
 
 function App() {
+  const [todos, setTodos] = useState(loadTodos())
+  const [filter, setFilter] = useState('all')
+
+  const filteredTodos = useMemo(() => {
+    if (filter === 'atWork') {
+      return todos.filter((todo) => !todo.status)
+    } else if (filter === 'completed') {
+      return todos.filter((todo) => todo.status)
+    }
+    return todos
+  }, [todos, filter])
+
   return (
     <>
       <div className="btn-filter-block">
-        <button>Все</button>
-        <button className="btn-filter__ToDoAtWork">Активные</button>
-        <button className="btn-filter__ToDoCompleted">Выполненные</button>
+        <button onClick={() => setFilter('all')}>Все</button>
+        <button
+          className="btn-filter__ToDoAtWork"
+          onClick={() => setFilter('atWork')}
+        >
+          Активные
+        </button>
+        <button
+          className="btn-filter__ToDoCompleted"
+          onClick={() => setFilter('completed')}
+        >
+          Выполненные
+        </button>
       </div>
-      <TodoForm />
+      <TodoForm todos={filteredTodos} setTodosFromApp={setTodos} />
     </>
-  );
+  )
 }
 
-export default App;
+export default App
