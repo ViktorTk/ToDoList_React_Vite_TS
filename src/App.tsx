@@ -1,42 +1,64 @@
-import { useState, useMemo } from 'react'
-import './App.css'
+import { useState, useEffect, useMemo } from "react";
+import "./App.css";
 
-import { loadTodos } from './relatedScripts/localStorage'
-import TodoForm from './components/TodoForm/TodoForm'
+import { loadTodos } from "./relatedScripts/localStorage";
+import TodoForm from "./components/TodoForm/TodoForm";
 
 function App() {
-  const [todos, setTodos] = useState(loadTodos())
-  const [filter, setFilter] = useState('all')
+  const [todos, setTodos] = useState(loadTodos());
+  const [filter, setFilter] = useState("all");
+  const [countActive, setCountActive] = useState(0);
+
+  useEffect(() => {
+    const onlyActive = todos.filter((todo) => !todo.status).length;
+    setCountActive(onlyActive);
+  }, [todos]);
 
   const filteredTodos = useMemo(() => {
-    if (filter === 'atWork') {
-      return todos.filter((todo) => !todo.status)
-    } else if (filter === 'completed') {
-      return todos.filter((todo) => todo.status)
+    if (filter === "atWork") {
+      return todos.filter((todo) => !todo.status);
+    } else if (filter === "completed") {
+      return todos.filter((todo) => todo.status);
     }
-    return todos
-  }, [todos, filter])
+    return todos;
+  }, [todos, filter]);
+
+  //---------------------------------------------------------------------------------
 
   return (
     <>
+      <div>Активных задач: {countActive}</div>
       <div className="btn-filter-block">
-        <button onClick={() => setFilter('all')}>Все</button>
         <button
-          className="btn-filter__ToDoAtWork"
-          onClick={() => setFilter('atWork')}
+          className={`btn-filter__ToDoAll ${filter === "all" ? "active" : ""}`}
+          onClick={() => setFilter("all")}
+        >
+          Все
+        </button>
+        <button
+          className={`btn-filter__ToDoAtWork ${
+            filter === "atWork" ? "active" : ""
+          }`}
+          onClick={() => setFilter("atWork")}
         >
           Активные
         </button>
         <button
-          className="btn-filter__ToDoCompleted"
-          onClick={() => setFilter('completed')}
+          className={`btn-filter__ToDoCompleted ${
+            filter === "completed" ? "active" : ""
+          }`}
+          onClick={() => setFilter("completed")}
         >
           Выполненные
         </button>
       </div>
-      <TodoForm todos={filteredTodos} setTodosFromApp={setTodos} />
+      <TodoForm
+        allTodos={todos}
+        todos={filteredTodos}
+        setTodosFromApp={setTodos}
+      />
     </>
-  )
+  );
 }
 
-export default App
+export default App;

@@ -1,40 +1,50 @@
-import { useState } from 'react'
-import './TodoForm.css'
+import { useState } from "react";
+import "./TodoForm.css";
 
-import uuid from 'react-uuid'
-import { saveTodos } from '../../relatedScripts/localStorage'
-import TodoList from '../TodoList/TodoList'
+import uuid from "react-uuid";
+import { saveTodos } from "../../relatedScripts/localStorage";
+import TodoList from "../TodoList/TodoList";
 
-function TodoForm({ todos, setTodosFromApp }) {
-  const [value, setValue] = useState('')
+function TodoForm({ allTodos, todos, setTodosFromApp }) {
+  const [value, setValue] = useState("");
 
   function saveInLS() {
-    if (value !== '') {
-      const newId = uuid()
+    if (value !== "") {
+      const newId = uuid();
       const newTodoItem = {
         id: newId,
         text: value,
         status: false,
-      }
+      };
 
-      const updatedTodos = [...todos, newTodoItem]
-      saveTodos(updatedTodos)
-      setValue('')
-      setTodosFromApp(updatedTodos)
+      const updatedTodos = [...allTodos, newTodoItem];
+      saveTodos(updatedTodos);
+      setValue("");
+      setTodosFromApp(updatedTodos);
     }
   }
+
+  //---------------------------------------------------------------------------------
 
   return (
     <div className="add-todo-block">
       <input
         type="text"
+        placeholder="Введите текст задачи:"
         value={value}
         onChange={(event) => setValue(event.target.value)}
+        onKeyDown={(event) => {
+          if (event.key === "Enter") saveInLS();
+        }}
       />
       <button onClick={saveInLS}>click!</button>
-      <TodoList todos={todos} setTodos={setTodosFromApp} />
+      <TodoList
+        allTodos={allTodos}
+        todos={todos}
+        setTodosFromApp={setTodosFromApp}
+      />
     </div>
-  )
+  );
 }
 
-export default TodoForm
+export default TodoForm;
