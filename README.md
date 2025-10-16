@@ -8,11 +8,11 @@
 
 ## Дополнительные библиотеки:
 
-- react-uuid
+- [react-uuid](https://www.npmjs.com/package/react-uuid "генерация рандомных id для созданных задач")
 
 ## Дополнительные компоненты (стилизация/решения и т.д.)
 
-[Кастомный анимированный свич](https://www.w3schools.com/howto/howto_css_switch.asp "Решение с сайта https://www.w3schools.com/")
+- [Кастомный анимированный свич](https://www.w3schools.com/howto/howto_css_switch.asp "Решение с сайта https://www.w3schools.com/")
 
 ## Структура компонентов:
 
