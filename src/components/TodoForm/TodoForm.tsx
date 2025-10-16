@@ -2,10 +2,17 @@ import { useState } from "react";
 import "./TodoForm.css";
 
 import uuid from "react-uuid";
+import type { Todo } from "../../types";
 import { saveTodos } from "../../relatedScripts/localStorage";
 import TodoList from "../TodoList/TodoList";
 
-function TodoForm({ allTodos, todos, setTodosFromApp }) {
+interface TodoFormProps {
+  allTodos: Todo[];
+  todos: Todo[];
+  setTodosFromApp: React.Dispatch<React.SetStateAction<Todo[]>>;
+}
+
+function TodoForm({ allTodos, todos, setTodosFromApp }: TodoFormProps) {
   const [value, setValue] = useState("");
 
   function saveInLS() {
@@ -38,7 +45,7 @@ function TodoForm({ allTodos, todos, setTodosFromApp }) {
         }}
       />
       <button className="add-todo-block__btn-add-todo" onClick={saveInLS}>
-        click!
+        Добавить
       </button>
       <TodoList
         allTodos={allTodos}

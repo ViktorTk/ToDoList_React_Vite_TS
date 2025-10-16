@@ -8,12 +8,19 @@
   padding: 2rem;
 }
 
+.todoList__block {
+  padding: 1.5rem;
+  border-radius: 0.375rem;
+  background-color: #fbfbfbcb;
+}
+
 .count-active-status {
   margin-right: 1rem;
   text-align: end;
 }
 
 button {
+  background-color: transparent;
   cursor: pointer;
 }
 

@@ -1,6 +1,7 @@
 import { useState, useEffect, useMemo } from "react";
 import "./App.css";
 
+import type { Todo } from "./types";
 import { loadTodos } from "./relatedScripts/localStorage";
 import TodoForm from "./components/TodoForm/TodoForm";
 
@@ -10,15 +11,15 @@ function App() {
   const [countActive, setCountActive] = useState(0);
 
   useEffect(() => {
-    const onlyActive = todos.filter((todo) => !todo.status).length;
+    const onlyActive = todos.filter((todo: Todo) => !todo.status).length;
     setCountActive(onlyActive);
   }, [todos]);
 
   const filteredTodos = useMemo(() => {
     if (filter === "atWork") {
-      return todos.filter((todo) => !todo.status);
+      return todos.filter((todo: Todo) => !todo.status);
     } else if (filter === "completed") {
-      return todos.filter((todo) => todo.status);
+      return todos.filter((todo: Todo) => todo.status);
     }
     return todos;
   }, [todos, filter]);
@@ -26,7 +27,7 @@ function App() {
   //---------------------------------------------------------------------------------
 
   return (
-    <>
+    <div className="todoList__block">
       <h2 className="count-active-status">Активных задач: {countActive}</h2>
       <div className="btn-filter-block">
         <button
@@ -57,7 +58,7 @@ function App() {
         todos={filteredTodos}
         setTodosFromApp={setTodos}
       />
-    </>
+    </div>
   );
 }
 

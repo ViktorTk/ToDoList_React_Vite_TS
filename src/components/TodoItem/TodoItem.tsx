@@ -1,7 +1,17 @@
 import { useState } from "react";
 import "./TodoItem.css";
 
+import type { Todo } from "../../types";
 import { loadTodos, saveTodos } from "../../relatedScripts/localStorage";
+
+interface TodoItemProps {
+  id: string;
+  text: string;
+  status: boolean;
+  setTodosFromApp: React.Dispatch<React.SetStateAction<Todo[]>>;
+  changeStatus: (id: string) => void;
+  deleteToDoItem: (id: string) => void;
+}
 
 function TodoItem({
   id,
@@ -10,7 +20,7 @@ function TodoItem({
   setTodosFromApp,
   changeStatus,
   deleteToDoItem,
-}) {
+}: TodoItemProps) {
   const [isEditing, setIsEditing] = useState(false);
   const [editText, setEditText] = useState(text);
 
@@ -24,7 +34,7 @@ function TodoItem({
     setIsEditing(false);
   }
 
-  function handleKeyDown(event) {
+  function handleKeyDown(event: React.KeyboardEvent<HTMLInputElement>) {
     if (event.key === "Enter") {
       handleSave();
     } else if (event.key === "Escape") {
@@ -37,7 +47,7 @@ function TodoItem({
     if (editText.trim() === "") return;
 
     // Обновляем задачу иммутабельно
-    const updatedTodos = loadTodos().map((todo) => {
+    const updatedTodos = loadTodos().map((todo: Todo) => {
       if (todo.id === id) {
         return { ...todo, text: editText.trim() };
       }
@@ -65,7 +75,12 @@ function TodoItem({
           />
         ) : (
           <>
-            <span onDoubleClick={handleEdit}>{text}</span>
+            <span
+              className={`${status ? "todo-item-block__todoIsComplited" : ""}`}
+              onDoubleClick={handleEdit}
+            >
+              {text}
+            </span>
 
             <div className="todo-item-block__setting_block">
               <label className="switch">

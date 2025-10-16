@@ -1,8 +1,15 @@
+import type { Todo } from "../../types";
 import { saveTodos } from "../../relatedScripts/localStorage";
 import TodoItem from "../TodoItem/TodoItem";
 
-function TodoList({ allTodos, todos, setTodosFromApp }) {
-  function changeStatus(id) {
+interface TodoListProps {
+  allTodos: Todo[];
+  todos: Todo[];
+  setTodosFromApp: React.Dispatch<React.SetStateAction<Todo[]>>;
+}
+
+function TodoList({ allTodos, todos, setTodosFromApp }: TodoListProps) {
+  function changeStatus(id: string) {
     const changedList = allTodos.map((el) => {
       if (el.id === id) {
         return { ...el, status: !el.status };
@@ -14,7 +21,7 @@ function TodoList({ allTodos, todos, setTodosFromApp }) {
     setTodosFromApp(changedList);
   }
 
-  function deleteToDoItem(id) {
+  function deleteToDoItem(id: string) {
     const filteredList = allTodos.filter((el) => el.id !== id);
 
     saveTodos(filteredList);
