@@ -8,6 +8,15 @@
   padding: 2rem;
 }
 
+.count-active-status {
+  margin-right: 1rem;
+  text-align: end;
+}
+
+button {
+  cursor: pointer;
+}
+
 .btn-filter-block {
   display: flex;
   flex-wrap: wrap;

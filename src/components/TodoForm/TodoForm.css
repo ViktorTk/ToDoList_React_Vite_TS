@@ -9,7 +9,19 @@
     padding: 0.5rem;
   }
 
-  button {
+  .add-todo-block__btn-add-todo {
+    padding: 0.75rem;
+    border-radius: 0.5rem;
     border: 1px solid black;
+    transition: all 0.3s;
+  }
+
+  .add-todo-block__btn-add-todo:hover {
+    background-color: lightgrey;
+  }
+
+  .add-todo-block__btn-add-todo:active {
+    transform: scale(0.99);
+    background-color: grey;
   }
 }

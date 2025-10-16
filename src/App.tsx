@@ -27,7 +27,7 @@ function App() {
 
   return (
     <>
-      <div>Активных задач: {countActive}</div>
+      <h2 className="count-active-status">Активных задач: {countActive}</h2>
       <div className="btn-filter-block">
         <button
           className={`btn-filter__ToDoAll ${filter === "all" ? "active" : ""}`}

@@ -37,7 +37,9 @@ function TodoForm({ allTodos, todos, setTodosFromApp }) {
           if (event.key === "Enter") saveInLS();
         }}
       />
-      <button onClick={saveInLS}>click!</button>
+      <button className="add-todo-block__btn-add-todo" onClick={saveInLS}>
+        click!
+      </button>
       <TodoList
         allTodos={allTodos}
         todos={todos}

@@ -53,7 +53,7 @@ function TodoItem({
 
   return (
     <li data-id={id}>
-      <div className="todo-item__block">
+      <div className="todo-item-block">
         {isEditing ? (
           <input
             type="text"
@@ -67,15 +67,17 @@ function TodoItem({
           <>
             <span onDoubleClick={handleEdit}>{text}</span>
 
-            <label className="switch">
-              <input
-                type="checkbox"
-                checked={status}
-                onChange={() => changeStatus(id)}
-              />
-              <span className="slider round"></span>
-            </label>
-            <button onClick={() => deleteToDoItem(id)}>Удалить</button>
+            <div className="todo-item-block__setting_block">
+              <label className="switch">
+                <input
+                  type="checkbox"
+                  checked={status}
+                  onChange={() => changeStatus(id)}
+                />
+                <span className="slider round"></span>
+              </label>
+              <button onClick={() => deleteToDoItem(id)}>Удалить</button>
+            </div>
           </>
         )}
       </div>
